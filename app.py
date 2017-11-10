@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 #OBTAIN ALL VALUES TO BE DISPLAYED IN THE TEMPLATE#
 name = d['copyright']
-img = d['url']
+img = d['hdurl']
 desc = d['explanation']
 date = d['date']
 title = d['title']
