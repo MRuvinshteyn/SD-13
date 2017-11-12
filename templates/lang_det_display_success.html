@@ -1,0 +1,29 @@
+<!- Michael Ruvinshteyn ->
+<!- SoftDev1 pd7 ->
+<!- HW14 -- Getting More REST ->
+<!- 2017 - 11 - 12 ->
+
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Detecting "{{QUERY}}"</title>
+    </head>
+    
+    <body>
+        Query: <strong>{{QUERY}}</strong>
+        
+        <br><br>
+        
+        {% for lang in langs %}
+            <strong>Language Name: </strong>{{lang.language_name}}<br>
+            <strong>Language Code: </strong>{{lang.language_code}}<br>
+            <strong>Probability: </strong>{{lang.probability}}<br>
+            <strong>Percentage: </strong>{{lang.percentage}}<br>
+            <strong>Reliable Result: </strong>{{lang.reliable_result}}<br><br>
+        {% endfor %}
+    </body>
+
+</html>

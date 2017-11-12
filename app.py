@@ -1,32 +1,29 @@
 #Michael Ruvinshteyn
 #SoftDev1 pd7
-#HW13 -- A RESTful Journey Skyward
-#2017 - 11 - 09
+#HW14 -- Getting More REST
+#2017 - 11 - 12
 
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 import urllib2,json
-
-url = "https://api.nasa.gov/planetary/apod?api_key=2GTxH8djyXY3fq4DXGy5nY7o6OPAZq3oAhq53opG" #URL for the API key
-site = urllib2.urlopen(url) #opens API key and obtains all of its contents
-s = site.read() #creates a string of all of the key's contents
-d = json.loads(s) #creates a dictionary with all of the values obtained from the key
-
-print "URL: " + site.geturl()
-print site.info()
 
 app = Flask(__name__)
 
-#OBTAIN ALL VALUES TO BE DISPLAYED IN THE TEMPLATE#
-name = d['copyright']
-img = d['hdurl']
-desc = d['explanation']
-date = d['date']
-title = d['title']
-
 @app.route('/')
 def home():
-    return render_template("api.html", NAME = name, IMG = img, EXP = desc, DATE = date, TITLE = title)
+    return render_template("lang_det_query.html")
 
+@app.route('/det', methods=['GET','POST'])
+def lang():
+    query = request.form['query']
+    url = "http://apilayer.net/api/detect?access_key=e75477049e4a7f0e06d4a416a1924b84&query=" + query
+    site = urllib2.urlopen(url)
+    s = site.read()
+    stuff = json.loads(s)
+    if (stuff['success']):
+        return render_template('lang_det_display_success.html', QUERY = query, langs = stuff['results'])
+    else:
+        return render_template('lang_det_display_failure.html', ERROR = "invalid input")
+    
 if __name__ == "__main__":
     app.debug = True
     app.run()
